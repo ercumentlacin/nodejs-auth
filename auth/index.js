@@ -47,7 +47,8 @@ router.post('/signup', async (req, res, next) => {
             message: err.message,
           });
         }
-        res.status(201).json(user);
+        const { password, ...userWithoutPassword } = user.toObject();
+        res.status(201).json(userWithoutPassword);
       });
     });
   } catch (error) {
