@@ -10,3 +10,4 @@
   * [x] Validate username is unique
   * [x] Hash password with bcrypt
   * [x] Insert user into database
+  
