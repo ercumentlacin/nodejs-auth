@@ -57,14 +57,14 @@ const loginUser = async (req, res, next) => {
 
     User.findOne({ username }, async (err, user) => {
       if (!user) {
-        res.status(400).json({
+        res.status(401).json({
           message: 'Username does not exist',
         });
       }
 
       const isMatch = await bcrypt.compare(doc.password, user['password']);
       if (!isMatch) {
-        res.status(400).json({
+        res.status(403).json({
           message: 'Password is incorrect',
         });
       }
