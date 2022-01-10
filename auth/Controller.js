@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const User = require('./model');
 
@@ -69,8 +70,30 @@ const loginUser = async (req, res, next) => {
         });
       }
 
-      const { password, ...userWithoutPassword } = user.toObject();
-      res.status(200).json(userWithoutPassword);
+      const payload = {
+        userId: user._id,
+        username: user.username,
+      }
+
+      jwt.sign(payload, process.env.JWT_SECRET, {
+        expiresIn: '1d',
+      }, (err, token) => {
+        if (err) {
+          res.status(500).json({
+            message: 'Error signing token',
+          });
+        } else {
+
+          res.cookie('token', token, {
+            httpOnly: true,
+            maxAge: 1000 * 60 * 60 * 24 * 1,  // 1 day
+          });
+
+          res.status(200).json({
+            token,
+          });
+        }
+      });
     });
   } catch (error) {
     next(error);

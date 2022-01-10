@@ -15,7 +15,7 @@
   * [x] Check if user exists
     * [x] Compare password with hashed password in database
       * [ ] Rate limit login attempts
-    * [ ] Create and sign JWT
-      * [ ] Set cookie with JWT
+    * [x] Create and sign JWT
+      * [x] Set cookie with JWT
 * [ ] Create sign up form; show errors; redirect;
   * [ ] Validate required fields
